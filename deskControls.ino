@@ -9,11 +9,11 @@
 
   http://www.arduino.cc/en/Tutorial/AnalogReadSerial
 */
-  const int analogOutRed = 7;
-  const int analogOutYellow = 9;
-  const int analogOutBlue = 10;
-  const int analogOutGreen = 11;
-  const int analogOutWhite = 12;
+  const int redLed = 7;
+  const int yellowLed = 9;
+  const int blueLed = 10;
+  const int greenLed = 11;
+  const int whiteLed = 12;
 
   const int redButtonPin = 2;     // the number of the pushbutton pin
   const int yellowButtonPin = 3;     // the number of the pushbutton pin
@@ -29,7 +29,12 @@
   int greenState = 0;         // variable for reading the pushbutton status
   int whiteState = 0;         // variable for reading the pushbutton status
 
-  int brightness = HIGH;
+  int redFlash = 3;         
+  int yellowFlash = 3;
+  int blueFlash =  3;
+  int greenFlash = 3;
+  int whiteFlash = 3; 
+
   // the setup routine runs once when you press reset:
 void setup() {
   // initialize serial communication at 9600 bits per second:
@@ -41,25 +46,26 @@ void setup() {
   pinMode(greenButtonPin, INPUT);
   pinMode(whiteButtonPin, INPUT);
   pinMode(flashButtonPin, INPUT);
-  // flash all lights once
-  pinMode(analogOutRed, OUTPUT);
-  pinMode(analogOutYellow, OUTPUT);
+  // initializing the LEDs
+  pinMode(redLed, OUTPUT);
+  pinMode(yellowLed, OUTPUT);
   pinMode(blueButtonPin, OUTPUT);
-  pinMode(analogOutBlue, OUTPUT);
-  pinMode(analogOutGreen, OUTPUT);
-  pinMode(analogOutWhite, OUTPUT);
+  pinMode(blueLed, OUTPUT);
+  pinMode(greenLed, OUTPUT);
+  pinMode(whiteLed, OUTPUT);
 
-  digitalWrite(analogOutRed, brightness);
-  digitalWrite(analogOutYellow, brightness);
-  digitalWrite(analogOutBlue, brightness);
-  digitalWrite(analogOutGreen, brightness);
-  digitalWrite(analogOutWhite, brightness);
+  // flash all lights once
+  digitalWrite(redLed, HIGH);
+  digitalWrite(yellowLed, HIGH);
+  digitalWrite(blueLed, HIGH);
+  digitalWrite(greenLed, HIGH);
+  digitalWrite(whiteLed, HIGH);
   delay(1000);
-  digitalWrite(analogOutRed, 0);
-  digitalWrite(analogOutYellow, 0);
-  digitalWrite(analogOutBlue, 0);
-  digitalWrite(analogOutGreen, 0);
-  digitalWrite(analogOutWhite, 0);
+  digitalWrite(redLed, 0);
+  digitalWrite(yellowLed, 0);
+  digitalWrite(blueLed, 0);
+  digitalWrite(greenLed, 0);
+  digitalWrite(whiteLed, 0);
 }
 // the loop routine runs over and over again forever:
 void loop() {
@@ -67,89 +73,135 @@ void loop() {
   // red lights
   
   int redBV = digitalRead(redButtonPin);
-
   if (redBV == HIGH) {
     if (redState == LOW) {
       Serial.println("red button pressed - ON");
       redState = HIGH;
-      digitalWrite(analogOutRed, brightness);
+      digitalWrite(redLed, HIGH);
+      redFlash -= 1;
   }
   else {
     Serial.println("red button pressed - OFF");
-    digitalWrite(analogOutRed, 0);
+    digitalWrite(redLed, 0);
     redState = LOW;
+    if (redFlash == 0) {
+      for (int i =0; i < 5; i++) {
+        digitalWrite(redLed, HIGH);
+        delay(250);
+        digitalWrite(redLed, LOW);
+        delay(500);
+      }
+      redFlash = 3;
+    }
   }
   delay(500);
   }
 
   // yellow lights
   int yellowBV = digitalRead(yellowButtonPin);
-  
-    if (yellowBV == HIGH) {
-      if (yellowState == LOW) {
-        Serial.println("yellow button pressed - ON");
-        yellowState = HIGH;
-        digitalWrite(analogOutYellow, brightness);
-      } 
-      else {
-        Serial.println("yellow button pressed - OFF");
-        digitalWrite(analogOutYellow, 0);
-        yellowState = LOW;
+  if (yellowBV == HIGH) {
+    if (yellowState == LOW) {
+      Serial.println("yellow button pressed - ON");
+      yellowState = HIGH;
+      digitalWrite(yellowLed, HIGH);
+      yellowFlash -= 1;
+    } 
+    else {
+      Serial.println("yellow button pressed - OFF");
+      digitalWrite(yellowLed, 0);
+      yellowState = LOW;
+      if (yellowFlash == 0) {
+        for (int i =0; i < 5; i++) {
+          digitalWrite(yellowLed, HIGH);
+          delay(250);
+          digitalWrite(yellowLed, LOW);
+          delay(500);
+        }
+        yellowFlash = 3;
       }
+    }
      delay(500);
     }
 
   // blue lights
   int blueBV = digitalRead(blueButtonPin);
-  
-    if (blueBV == HIGH) {
-       delay(100);
-      if (blueState == LOW) {
-        Serial.println("blue button pressed - ON");
-        blueState = HIGH;
-        digitalWrite(analogOutBlue, brightness);
-      } 
-      else {
-        Serial.println("blue button pressed - OFF");
-        digitalWrite(analogOutBlue, 0);
-        blueState = LOW;
-      }
-      delay(500);
+  if (blueBV == HIGH) {
+      delay(100);
+    if (blueState == LOW) {
+      Serial.println("blue button pressed - ON");
+      blueState = HIGH;
+      digitalWrite(blueLed, HIGH);
+      blueFlash -= 1;
+    } 
+    else {
+      Serial.println("blue button pressed - OFF");
+      digitalWrite(blueLed, 0);
+      blueState = LOW;
+      if (blueFlash == 0) {
+        for (int i =0; i < 5; i++) {
+          digitalWrite(blueLed, HIGH);
+          delay(250);
+          digitalWrite(blueLed, LOW);
+          delay(500);
+        }
+      blueFlash = 3;
     }
+    }
+    delay(500);
+  }
 
     // white lights
-    int whiteBV = digitalRead(whiteButtonPin);
-    
-      if (whiteBV == HIGH) {
-        if (whiteState == LOW) {
-          Serial.println("white button pressed - ON");
-          whiteState = HIGH;
-          digitalWrite(analogOutWhite, brightness);
-        } 
-        else {
-          Serial.println("white button pressed - OFF");
-          digitalWrite(analogOutWhite, 0);
-          whiteState = LOW;
+  int whiteBV = digitalRead(whiteButtonPin);
+  if (whiteBV == HIGH) {
+    if (whiteState == LOW) {
+      Serial.println("white button pressed - ON");
+      whiteState = HIGH;
+      digitalWrite(whiteLed, HIGH);
+      whiteFlash -= 1;
+    } 
+    else {
+      Serial.println("white button pressed - OFF");
+      digitalWrite(whiteLed, 0);
+      whiteState = LOW;
+      if (whiteFlash == 0) {
+        for (int i =0; i < 5; i++) {
+          digitalWrite(whiteLed, HIGH);
+          delay(250);
+          digitalWrite(whiteLed, LOW);
+          delay(500);
         }
-        delay(500);
+        whiteFlash = 3;
       }
-
-    // green lights
-    int greenBV = digitalRead(greenButtonPin);
-  
-    if (greenBV == HIGH) {
-      if (greenState == LOW) {
-        Serial.println("green button pressed - ON");
-        greenState = HIGH;
-        digitalWrite(analogOutGreen, brightness);
-      } 
-      else {
-        Serial.println("green button pressed - OFF");
-        digitalWrite(analogOutGreen, 0);
-        greenState = LOW;
-      }
-      delay(500);
     }
+    delay(500);
+  }
+
+  // green lights
+  int greenBV = digitalRead(greenButtonPin);
+  if (greenBV == HIGH) {
+    if (greenState == LOW) {
+      Serial.println("green button pressed - ON");
+      greenState = HIGH;
+      digitalWrite(greenLed, HIGH);
+      greenFlash -= 1;
+
+    } 
+    else {
+      Serial.println("green button pressed - OFF");
+      digitalWrite(greenLed, 0);
+      greenState = LOW;
+      if (greenFlash == 0) {
+        for (int i =0; i < 5; i++) {
+          digitalWrite(greenLed, HIGH);
+          delay(250);
+          digitalWrite(greenLed, LOW);
+          delay(500);
+        }
+        greenFlash = 3;
+      }
+    }    
+    delay(500);
+  }
 
   // flashing pattern: red on + off, yellow on + off, blue on + off , green on + off, white on + off 
   // red on, wait, yellow on, wait, blue on, wait, green on, wait, white on, wait (all on at this point)
@@ -157,45 +209,52 @@ void loop() {
   // red off, wait, yellow off, wait, blue off wait, green off, wait, white off (all off at this point)
   int flashBV = digitalRead(flashButtonPin);
   if (flashBV == HIGH) {
+    
     Serial.println("Flash button pressed; party time");
+    digitalWrite(redLed, HIGH);
+    delay(500);
+    digitalWrite(yellowLed, HIGH);
+    delay(500);
+    digitalWrite(blueLed, HIGH);
+    delay(500);
+    digitalWrite(greenLed, HIGH);
+    delay(500);
+    digitalWrite(whiteLed, HIGH);
+    delay(500);
 
-    digitalWrite(analogOutRed, brightness);
-    delay(500);
-    digitalWrite(analogOutYellow, brightness);
-    delay(500);
-    digitalWrite(analogOutBlue, brightness);
-    delay(500);
-    digitalWrite(analogOutGreen, brightness);
-    delay(500);
-    digitalWrite(analogOutWhite, brightness);
-    delay(500);
     //all flash x 3
     for (int tp = 0; tp < 5; tp++) {      
-      digitalWrite(analogOutRed, 0);
-      digitalWrite(analogOutYellow, 0);
-      digitalWrite(analogOutBlue, 0);
-      digitalWrite(analogOutGreen, 0);
-      digitalWrite(analogOutWhite, 0);
+      digitalWrite(redLed, 0);
+      digitalWrite(yellowLed, 0);
+      digitalWrite(blueLed, 0);
+      digitalWrite(greenLed, 0);
+      digitalWrite(whiteLed, 0);
       delay(1000);
-      digitalWrite(analogOutRed, brightness);
-      digitalWrite(analogOutYellow, brightness);
-      digitalWrite(analogOutBlue, brightness);
-      digitalWrite(analogOutGreen, brightness);
-      digitalWrite(analogOutWhite, brightness);
+      digitalWrite(redLed, HIGH);
+      digitalWrite(yellowLed, HIGH);
+      digitalWrite(blueLed, HIGH);
+      digitalWrite(greenLed, HIGH);
+      digitalWrite(whiteLed, HIGH);
       delay(500);
     }
+    
     // now turn them back off
-    digitalWrite(analogOutRed, 0);
+    digitalWrite(redLed, 0);
     delay(500);
-    digitalWrite(analogOutYellow, 0);
+    digitalWrite(yellowLed, 0);
     delay(500);
-    digitalWrite(analogOutBlue, 0);
+    digitalWrite(blueLed, 0);
     delay(500);
-    digitalWrite(analogOutGreen, 0);
+    digitalWrite(greenLed, 0);
     delay(500);
-    digitalWrite(analogOutWhite, 0);
+    digitalWrite(whiteLed, 0);
     Serial.println("Party time is over");
-
+    // resetting the counters
+      int redFlash = 3;         
+      int yellowFlash = 3;
+      int blueFlash =  3;
+      int greenFlash = 3;
+      int whiteFlash = 3; 
   }
   delay(1);        // delay in between reads for stability
 }
