@@ -222,20 +222,20 @@ void loop() {
     digitalWrite(whiteLed, HIGH);
     delay(500);
 
-    //all flash x 3
-    for (int tp = 0; tp < 5; tp++) {      
+    //all flash x 5
+    for (int tp = 0; tp < 10; tp++) {      
       digitalWrite(redLed, 0);
       digitalWrite(yellowLed, 0);
       digitalWrite(blueLed, 0);
       digitalWrite(greenLed, 0);
       digitalWrite(whiteLed, 0);
-      delay(1000);
+      delay(500);
       digitalWrite(redLed, HIGH);
       digitalWrite(yellowLed, HIGH);
       digitalWrite(blueLed, HIGH);
       digitalWrite(greenLed, HIGH);
       digitalWrite(whiteLed, HIGH);
-      delay(500);
+      delay(250);
     }
     
     // now turn them back off
