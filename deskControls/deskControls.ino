@@ -85,7 +85,7 @@ void loop() {
     digitalWrite(redLed, 0);
     redState = LOW;
     if (redFlash == 0) {
-      for (int i =0; i < 5; i++) {
+      for (int i =0; i < 10; i++) {
         digitalWrite(redLed, HIGH);
         delay(250);
         digitalWrite(redLed, LOW);
@@ -111,7 +111,7 @@ void loop() {
       digitalWrite(yellowLed, 0);
       yellowState = LOW;
       if (yellowFlash == 0) {
-        for (int i =0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
           digitalWrite(yellowLed, HIGH);
           delay(250);
           digitalWrite(yellowLed, LOW);
@@ -138,7 +138,7 @@ void loop() {
       digitalWrite(blueLed, 0);
       blueState = LOW;
       if (blueFlash == 0) {
-        for (int i =0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
           digitalWrite(blueLed, HIGH);
           delay(250);
           digitalWrite(blueLed, LOW);
@@ -164,7 +164,7 @@ void loop() {
       digitalWrite(whiteLed, 0);
       whiteState = LOW;
       if (whiteFlash == 0) {
-        for (int i =0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
           digitalWrite(whiteLed, HIGH);
           delay(250);
           digitalWrite(whiteLed, LOW);
@@ -191,7 +191,7 @@ void loop() {
       digitalWrite(greenLed, 0);
       greenState = LOW;
       if (greenFlash == 0) {
-        for (int i =0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
           digitalWrite(greenLed, HIGH);
           delay(250);
           digitalWrite(greenLed, LOW);
@@ -205,7 +205,7 @@ void loop() {
 
   // flashing pattern: red on + off, yellow on + off, blue on + off , green on + off, white on + off 
   // red on, wait, yellow on, wait, blue on, wait, green on, wait, white on, wait (all on at this point)
-  // all flash x 3
+  // all flash
   // red off, wait, yellow off, wait, blue off wait, green off, wait, white off (all off at this point)
   int flashBV = digitalRead(flashButtonPin);
   if (flashBV == HIGH) {

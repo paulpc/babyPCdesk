@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "/home/paulpc/opt/arduino-1.8.5/hardware/arduino/avr/cores/arduino"
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": false,
+                "path": [
+                    "/home/paulpc/opt/arduino-1.8.5/hardware/arduino/avr/cores/arduino"
+                ]
+            },
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 3
+}
