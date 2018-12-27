@@ -594,5 +594,5 @@ void loop() {
         }
     }
   }    
-  delay(200);        // delay in between reads for stability
+  delay(500);        // delay in between reads for stability
 }
